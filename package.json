@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/paoloricciuti/fortunewheel-gif-generator#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "heroku": "^7.47.0"
   }
 }
