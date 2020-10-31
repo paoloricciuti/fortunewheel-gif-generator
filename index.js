@@ -26,9 +26,9 @@ function sendAsGIF(response, canvas, names) {
     var encoder = createGifEncoder({ x: canvas.width, y: canvas.height }, response);
     var context = canvas.getContext("2d");
     let angle = (Math.PI * 2) / names.length;
-    let randomSpin=Math.PI*8;
     let vel=Math.random()*2;
     let i=0;
+    let stopFrames=30;
     while(vel > 0){
         context.fillStyle = 'white';
         context.fillRect(0, 0, canvas.width, canvas.height);
@@ -60,8 +60,15 @@ function sendAsGIF(response, canvas, names) {
             numOfName++;
         }
         encoder.addFrame(context);
-        i+=vel;
-        vel-=0.02;
+        if(stopFrames>0){
+            stopFrames--;
+        }else{
+            i+=vel;
+            vel-=0.02;
+        }
+    }
+    for(let i=0; i<30; i++){
+        encoder.addFrame(context);
     }
     //let colors = ['white', 'yellow', 'cyan', 'lime', 'magenta', 'red', 'blue'];
 
@@ -86,7 +93,7 @@ function createGifEncoder(resolution, response) {
     stream.pipe(response);
 
     encoder.start();
-    encoder.setRepeat(-1);   // 0 for repeat, -1 for no-repeat
+    encoder.setRepeat(0);   // 0 for repeat, -1 for no-repeat
     encoder.setDelay(100);  // frame delay in ms
     encoder.setQuality(15); // image quality. 10 is default.
 
